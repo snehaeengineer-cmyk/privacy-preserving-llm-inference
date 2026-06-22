@@ -37,14 +37,14 @@ The diagnosis (`Type 2 diabetes`) is preserved. The identity is not.
 ```mermaid
 flowchart TD
     %% Define the Trusted Perimeter Box
-    subgraph Trusted [🛡️ TRUSTED PERIMETER]
+    subgraph Trusted [ TRUSTED PERIMETER]
         direction TB
-        App["📱 Healthcare App"]
-        Proxy["🔒 Anonymization Proxy"]
-        Vault["🗄️ Mapping Vault <br> (In-Memory)"]
-        Validator["⚙️ Local Response Validator"]
-        DeAnon["🔓 De-Anonymizer"]
-        Output["🏁 Final Output"]
+        App[" Healthcare App"]
+        Proxy[" Anonymization Proxy"]
+        Vault[" Mapping Vault <br> (In-Memory)"]
+        Validator[" Local Response Validator"]
+        DeAnon[" De-Anonymizer"]
+        Output[" Final Output"]
 
         %% Inner trusted flow
         App -->|Raw PII Data| Proxy
@@ -55,8 +55,8 @@ flowchart TD
     end
 
     %% Define the Untrusted Box
-    subgraph Untrusted [⚠️ UNTRUSTED ZONE]
-        LLM["🤖 Public LLM API"]
+    subgraph Untrusted [ UNTRUSTED ZONE]
+        LLM["Public LLM API"]
     end
 
     %% Cross-boundary communication
@@ -75,21 +75,21 @@ flowchart TD
 
 ---
 
-## flowchart TD
+## 
+
 ```mermaid
-    %% Define Pipeline Steps
-    Raw(["📄 Raw Clinical Prompt"])
+flowchart TD
+    Raw([" Raw Clinical Prompt"])
     NER["1. NER Pipeline <br> <font size=2><i>Hybrid: Microsoft Presidio + spaCy + SciSpaCy (BC5CDR)</i></font>"]
     Mask["2. Masking Engine <br> <font size=2><i>Replace PII spans with placeholders (e.g., [PATIENT_NAME_1])</i></font>"]
     Vault["3. Mapping Vault <br> <font size=2><i>Volatile in-memory registry (never written to disk)</i></font>"]
     Policy["4. Policy Engine <br> <font size=2><i>Block if unsafe; pass if clean</i></font>"]
     Builder["5. Prompt Builder <br> <font size=2><i>Add placeholder-handling instructions for LLM</i></font>"]
-    LLM[["🤖 6. Public LLM API <br> <font size=2><i>Receives ONLY the masked prompt</i></font>"]]
+    LLM[[" 6. Public LLM API <br> <font size=2><i>Receives ONLY the masked prompt</i></font>"]]
     Validator["7. Local Response Validator <br> <font size=2><i>Check placeholder integrity, PII leakage, hallucinations</i></font>"]
     DeMask["8. De-Masking Engine <br> <font size=2><i>Restore Mode OR Generic Mode</i></font>"]
-    Output(["🏁 Final Output"])
+    Output([" Final Output"])
 
-    %% Sequential Data Flow
     Raw --> NER
     NER --> Mask
     Mask --> Vault
@@ -100,7 +100,6 @@ flowchart TD
     Validator --> DeMask
     DeMask --> Output
 
-    %% Custom Step Highlights
     style NER fill:#1f2937,stroke:#38bdf8,stroke-width:1px
     style Vault fill:#1f2937,stroke:#fbbf24,stroke-width:1px
     style LLM fill:#111827,stroke:#ef4444,stroke-width:2px
@@ -110,7 +109,7 @@ flowchart TD
 
 ---
 
-## 🔍 PII Categories Detected
+## PII Categories Detected
 
 | PII Category | Example | Detection Method | Placeholder |
 |---|---|---|---|
@@ -129,7 +128,7 @@ SciSpaCy (BC5CDR corpus) runs alongside Presidio. If Presidio flags a string as 
 
 ---
 
-## 🔐 De-Masking Modes
+##  De-Masking Modes
 
 | Mode | Behaviour | Best For |
 |------|-----------|---------|
@@ -138,7 +137,7 @@ SciSpaCy (BC5CDR corpus) runs alongside Presidio. If Presidio flags a string as 
 
 ---
 
-## 📊 Evaluation Design
+## Evaluation Design
 
 The system is evaluated on **synthetic healthcare prompts** (no real patient data) across two dimensions:
 
@@ -155,13 +154,13 @@ LLM responses are scored 1–5 across: Relevance, Completeness, Coherence, Conte
 
 | Condition | Privacy | Expected Utility |
 |-----------|---------|-----------------|
-| Original Prompt (no masking) | ❌ Low | ✅ High |
-| Full Redaction `[REDACTED]` | ✅ High | ⚠️ Low–Medium |
-| **Placeholder Masking (ours)** | ✅ High | ✅ Medium–High |
+| Original Prompt (no masking) |  Low | High |
+| Full Redaction `[REDACTED]` |  High |  Low–Medium |
+| **Placeholder Masking (ours)** |  High |  Medium–High |
 
 ---
 
-## 🗂️ Repo Structure
+##  Repo Structure
 
 ```
 SystemX/
@@ -186,11 +185,11 @@ SystemX/
 └── README.md
 ```
 
-> ⚠️ Folder structure reflects planned implementation — files will be added as development progresses.
+>  Folder structure reflects planned implementation — files will be added as development progresses.
 
 ---
 
-## 🚀 Getting Started *(planned)*
+## Getting Started *(planned)*
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/SystemX-PII-Proxy.git
@@ -212,7 +211,7 @@ python proxy/request_handler.py --prompt "Anna Müller, born 12.03.1980, has Typ
 
 ---
 
-## 📦 Key Dependencies *(planned)*
+## Key Dependencies *(planned)*
 
 ```
 # NLP / PII Detection
@@ -232,7 +231,7 @@ scikit-learn            # precision / recall metrics
 
 ---
 
-## ⚖️ Regulatory Context
+##  Regulatory Context
 
 | Framework | Relevant Rule | System Response |
 |---|---|---|
@@ -243,7 +242,7 @@ scikit-learn            # precision / recall metrics
 
 ---
 
-## 📚 Key References
+##  Key References
 
 1. Chong et al., "Casper: Prompt Sanitization for Protecting User Privacy in Web-Based LLMs," CSCloud 2025
 2. Chen et al., "Hide and Seek (HaS): A Lightweight Framework for Prompt Privacy Protection," 2023
@@ -251,4 +250,4 @@ scikit-learn            # precision / recall metrics
 4. Article 29 Working Party, Opinion WP216 on Anonymisation Techniques, 2014
 5. Manzanares-Salor et al., "Evaluating Re-identification Risk of Anonymized Documents," DMKD 2024
 # privacy-preserving-llm-inference
-# privacy-preserving-llm-inference
+
