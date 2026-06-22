@@ -3,17 +3,17 @@
 > **Can an automated Anonymization Proxy strip sensitive patient data from healthcare prompts — without destroying the clinical context an LLM needs to give a useful answer?**  
 > This project builds a proxy layer between healthcare applications and public LLM APIs (e.g. GPT, Claude) that detects, masks, and later restores Personally Identifiable Information (PII) in real time.
 
-> ⚠️ **Status: Implementation in Progress** — This README reflects the system design and planned evaluation. Code is actively being developed.
+> **Status: Implementation in Progress** — This README reflects the system design and planned evaluation. Code is actively being developed.
 
 ---
 
-## 👥 Authors
+##  Authors
 
 Sneha Pillai, Mohamed Aziz Gam, Adrian Kramer, Raveena Kumari — TH Köln, Communication Systems and Networks
 
 ---
 
-## 🧠 The Problem
+##  The Problem
 
 Healthcare applications increasingly use public LLM APIs for tasks like clinical documentation, medical Q&A, and discharge summaries. But raw clinical prompts contain dense **Protected Health Information (PHI)** — patient names, dates of birth, addresses, insurance IDs — which cannot legally leave a hospital's trusted perimeter under **GDPR** or **HIPAA**.
 
@@ -32,7 +32,9 @@ The diagnosis (`Type 2 diabetes`) is preserved. The identity is not.
 
 ---
 
-## ```mermaid
+## System Architecture
+
+```mermaid
 flowchart TD
     %% Define the Trusted Perimeter Box
     subgraph Trusted [🛡️ TRUSTED PERIMETER]
@@ -64,15 +66,17 @@ flowchart TD
     %% Styling
     style Trusted fill:#0d1117,stroke:#58a6ff,stroke-width:2px,color:#fff
     style Untrusted fill:#161b22,stroke:#f85149,stroke-width:2px,color:#fff
+
 ```
+
 
 
 **No raw PII ever crosses the trust boundary.**
 
 ---
 
-## ```mermaid
-flowchart TD
+## flowchart TD
+```mermaid
     %% Define Pipeline Steps
     Raw(["📄 Raw Clinical Prompt"])
     NER["1. NER Pipeline <br> <font size=2><i>Hybrid: Microsoft Presidio + spaCy + SciSpaCy (BC5CDR)</i></font>"]
@@ -246,4 +250,5 @@ scikit-learn            # precision / recall metrics
 3. HHS, "HIPAA De-identification Guidance," 2012
 4. Article 29 Working Party, Opinion WP216 on Anonymisation Techniques, 2014
 5. Manzanares-Salor et al., "Evaluating Re-identification Risk of Anonymized Documents," DMKD 2024
+# privacy-preserving-llm-inference
 # privacy-preserving-llm-inference
