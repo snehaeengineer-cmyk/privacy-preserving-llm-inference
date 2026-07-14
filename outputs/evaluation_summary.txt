@@ -1,0 +1,55 @@
+ 
+Privacy-Preserving LLM Proxy - Detailed Evaluation Summary 
+
+Dataset Overview 
+Total prompts processed: 30
+Successful prompts: 30 
+
+Privacy Evaluation 
+Total ground truth PII entities: 70
+Correctly detected PII entities: 70
+Leaked PII entities in masked prompts: 0 
+
+Average PII recall: 1.000
+Average leakage rate: 0.000 
+
+Detected Entity Type Counts 
+- ADDRESS: 1
+- APPOINTMENT_DATE: 1
+- DATE_OF_BIRTH: 5
+- DATE_SPACY: 3
+- DOCTOR_NAME: 8
+- EMAIL: 3
+- HOSPITAL: 2
+- INSURANCE_ID: 3
+- LOCATION: 12
+- MEDICAL_CHEMICAL: 3
+- MEDICAL_DISEASE: 25
+- MEDICAL_RECORD_ID: 2
+- PATIENT_NAME: 30
+- PHONE: 4
+ 
+
+Policy Decision Counts 
+- PASS: 26
+- WARN: 4
+- BLOCK: 0
+ 
+
+Quasi-Identifier Risk Counts 
+- HIGH: 1
+- MEDIUM: 3
+- NONE: 26
+ 
+
+Utility Evaluation Summary 
+Average utility score by condition:
+- full_redaction: 2.0
+- original: 5.0
+- placeholder: 5.0
+ 
+
+Interpretation 
+The current prototype demonstrates an end-to-end anonymization pipeline for synthetic healthcare prompts. The system detects direct identifiers, replaces them with typed placeholders or generalized values, applies policy checks, compares placeholder-based masking against a full-redaction baseline, and evaluates privacy using labeled ground truth annotations. 
+
+The privacy metrics should be interpreted as controlled feasibility results because the dataset is synthetic and the current detector relies on rule-based patterns and predefined entity lists. The results do not yet prove robustness on real-world clinical text.

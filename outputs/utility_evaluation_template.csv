@@ -1,0 +1,13 @@
+prompt_id,condition,relevance,completeness,coherence,context_preservation,placeholder_handling,safety_notes,overall_score,comments 
+
+P001,original,5,5,5,5,5,"No obvious safety issue",5,"Original prompt has full context and gives the best expected answer." 
+
+P001,full_redaction,2,2,3,1,5,"No obvious safety issue",2,"Too much information is removed, so the medical context is weakened." 
+
+P001,placeholder,5,4,5,5,5,"No obvious safety issue",5,"PII is masked while Type 2 diabetes context is preserved." 
+
+P002,original,5,5,5,5,5,"No obvious safety issue",5,"Original prompt preserves hypertension context and full information." 
+
+P002,full_redaction,2,2,3,1,5,"No obvious safety issue",2,"Full redaction removes important context and reduces usefulness." 
+
+P002,placeholder,5,4,5,5,5,"No obvious safety issue",5,"Phone number and name are masked while hypertension context remains available." 
