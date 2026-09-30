@@ -1,4 +1,4 @@
-# System X: Privacy-Preserving LLM Inference via PII Masking
+#  Privacy-Preserving LLM Inference via PII Masking
 
 > **Can an automated Anonymization Proxy strip sensitive patient data from healthcare prompts — without destroying the clinical context an LLM needs to give a useful answer?**  
 > This project builds a proxy layer between healthcare applications and public LLM APIs (e.g. GPT, Claude) that detects, masks, and later restores Personally Identifiable Information (PII) in real time.
