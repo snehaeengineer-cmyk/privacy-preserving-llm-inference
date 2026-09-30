@@ -7,7 +7,7 @@
 
 ## Authors
 
-* **Raveena Kumari** — TH Köln, Communication Systems and Networks (`raveena_kumari.kumari@smail.th-koeln.de`)
+
 * **Sneha Pillai** — TH Köln, Communication Systems and Networks (`sneha_dayanandan.pillai@smail.th-koeln.de`)
 
 ---
