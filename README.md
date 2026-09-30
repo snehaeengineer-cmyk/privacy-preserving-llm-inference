@@ -1,6 +1,6 @@
 # Privacy-Preserving LLM Inference via PII Masking
 
-> **Can an automated Anonymization Proxy strip sensitive patient data from healthcare prompts — without destroying the clinical context an LLM needs to give a useful answer?**  
+> **Can an automated Anonymization Proxy strip sensitive patient data from healthcare prompts — without destroying the clinical context an LLM needs to give a useful answer?**
 > This project implements a local anonymization proxy between healthcare applications and external LLM APIs (e.g., Groq API, public LLMs). The proxy detects direct identifiers and quasi-identifiers, resolves NER conflicts, masks PII with typed placeholders, enforces safety policies, validates LLM responses, and restores or generalizes outputs in real time.
 
 ---
@@ -35,7 +35,7 @@ The diagnosis (`Type 2 diabetes`) and clinically relevant age band (`age group 4
 
 ```mermaid
 flowchart TD
-    subgraph Trusted [" TRUSTED CLOUD PERIMETER (Local / Hospital Boundary)"]
+    subgraph Trusted ["TRUSTED CLOUD PERIMETER (Local / Hospital Boundary)"]
         direction TB
         App["Healthcare App (EHR)"]
         Handler["Request Handler"]
@@ -49,7 +49,9 @@ flowchart TD
         Audit["Metadata Audit Logger"]
 
         App -->|1. Raw Clinical Prompt| Handler
-        Handler --> NER --> Resolver --> Masker
+        Handler --> NER
+        NER --> Resolver
+        Resolver --> Masker
         Masker -->|Store Token Mappings| Vault
         Masker --> Policy
         Validator --> DeAnon
@@ -57,12 +59,12 @@ flowchart TD
         Handler -.->|Log Metadata Only| Audit
     end
 
-    subgraph Untrusted [" UNTRUSTED EXTERNAL ENVIRONMENT"]
+    subgraph Untrusted ["UNTRUSTED EXTERNAL ENVIRONMENT"]
         LLM["Public LLM API (Groq API / Mock Mode)"]
     end
 
-    Policy ==>|3. Masked Prompt Only (HTTPS)| LLM
-    LLM ==>|4. Tokenized Response| Validator
+    Policy -->|3. Masked Prompt Only HTTPS| LLM
+    LLM -->|4. Tokenized Response| Validator
 
     style Trusted fill:#0d1117,stroke:#58a6ff,stroke-width:2px,color:#fff
     style Untrusted fill:#161b22,stroke:#f85149,stroke-width:2px,color:#fff
